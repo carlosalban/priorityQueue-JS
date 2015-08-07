@@ -1,0 +1,128 @@
+<html>
+	<head>
+		<script src="./jquery-1.11.2.min.js"></script>
+		<script src="./moment.js"></script>
+		<script>
+    		moment().format();
+		</script>
+		<script>
+			window.onload = function() {
+			    //Check File API support
+			    if (window.File && window.FileList && window.FileReader) {
+			        var filesInput = document.getElementById("files");
+
+			        filesInput.addEventListener("change", function(event) {
+
+			            var files = event.target.files; //FileList object
+			            var output = document.getElementById("result");
+
+			            for (var i = 0; i < files.length; i++) {
+			                var file = files[i];
+
+			                //Only plain text
+			                if (!file.type.match('plain')) continue;
+
+			                var picReader = new FileReader();
+
+			                picReader.addEventListener("load", function(event) {
+
+			                    var textFile = event.target;
+
+			                    var div = document.createElement("div");
+			                    div.id = "textDIV";
+			                    //$("#textDIV").empty();
+			                    $("#output1").empty();
+			                    $("#output2").empty();
+			                    $("#output3").empty();
+
+			                    div.innerText = textFile.result;
+
+			                    output.insertBefore(div, null);
+
+			                });
+
+			                //Read the text file
+			                picReader.readAsText(file);
+			            }
+
+			        });
+			    }
+			    else {
+			        console.log("Your browser does not support File API");
+			    }
+			}
+
+		</script>
+		<script src="./agendamanager.js"></script>
+
+		<style type="text/css">
+			body{
+			    font-family: 'Segoe UI';
+			    font-size: 12pt;
+			}
+
+			header h1{
+			    font-size:12pt;
+			    color: #fff;
+			    background-color: #1BA1E2;
+			    padding: 20px;
+
+			}
+			article
+			{
+			    width: 80%;
+			    margin:auto;
+			    margin-top:10px;
+			}
+
+
+			input[type='file']{
+			    margin:10px;
+			}
+		</style>
+		
+	</head>
+    <header>
+        <h1>Agenda Manager - TTU Analysis of Algorithms</h1>
+        <h5 style="padding-left: 10px;">Programmed by Carlos Alban</h5>
+    </header>
+    <body>
+    	<article>
+    		<p><strong>Instructions:</strong> <br>1. Select a .txt file. <br>2. Click on the go button to start. <br>3. Scroll down to see results.<br></p>
+    	</article>
+	    <article>
+	    	<p>You may create your own .txt file or use one of these samples: <a href="./test1.txt" download>test1.txt</a>, <a href="./test2.txt" download>test2.txt</a>, <a href="./test3.txt" download>test3.txt</a></p>
+	    	<p><i>Note: Data must be in format (x,y) where x is a string representing a rule and y is an integer representing the priority. Each cycle is defined by a new line.</i></p>
+	        <label for="files">Select a file : </label>
+	        <input id="files" type="file" />
+	        <br>	
+	        <button type="button" id="go" style="padding:15px 25px 15px 25px; margin-bottom:15px">GO!</button> 
+	        <button type="button" id="reset" style="padding:15px 25px 15px 25px; margin-bottom:15px">RESET</button> 
+	        <br>
+	        <output id="result" />
+	    </article>
+	    <table align="center">
+	    <hr>
+	    	<tr>
+	    		<td style="vertical-align: top">
+	    			<div id="output1" style="margin-left: 10px">
+	    			</div>
+	    		</td>
+	    		<td style="vertical-align: top">
+	    			<div id="output2" style="margin-left: 10px">
+	    			</div>
+	    		</td>
+	    		<td style="vertical-align: top">
+	    			<div id="output3" style="margin-left: 10px">
+	    			</div>
+	    		</td>
+	    	</tr>
+	    </table>
+	    
+	    
+
+	</body>
+
+
+
+</html>
